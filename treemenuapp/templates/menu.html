@@ -1,0 +1,30 @@
+<ul>
+{% for menu_item in serialized_menu %}
+        {% if '/nav_item/'|add:menu_item.slug|add:'/' == request.path  %}
+    <li class="current bg-success">
+            <span><i class="fa-solid fa-square-plus"></i></span>
+        <a href="{% url 'nav_item' menu_item.slug %}">{{ menu_item.title }}</a>
+
+            {% if menu_item.children|length %}
+            {% include "menu.html" with serialized_menu=menu_item.children last=True %}
+    {% endif %}
+    </li>
+    {% else %}
+        {% if last %}
+            <li class="last">  <span><i class="fa-solid fa-square-plus"></i> </span>
+                <a href="{% url 'nav_item' menu_item.slug %}"> {{ menu_item.title }}</a>
+                {% if menu_item.children|length %}
+                {% include "menu.html" with serialized_menu=menu_item.children last=False%}
+                        {% endif %}
+            {% else %}
+                 <li>  <span><i class="fa-solid fa-square-plus"></i></span>
+
+        <a href="{% url 'nav_item' menu_item.slug %}">{{ menu_item.title }}</a>
+                    {% if menu_item.children|length %}
+                {% include "menu.html" with serialized_menu=menu_item.children %}
+            {% endif %}
+    {% endif %}
+        </li>
+    {% endif %}
+{% endfor %}
+</ul>

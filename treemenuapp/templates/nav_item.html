@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row panel-collapse collapse in">
+    <div class="tree col-3">
+              {% draw_menu request %}
+    </div>
+    <div class="col-9 text-center">
+      <p>{{ nav_item.title }}</p>
+    </div>
+  </div>
+  </div>
+{% endblock content %}
